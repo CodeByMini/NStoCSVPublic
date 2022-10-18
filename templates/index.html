@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NS To CSV</title>
+    <link
+      href="{{ url_for('static', path='css/style.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="supercontainer">
+      <div class="container">
+        <form action="/getcsv">
+          <div class="smallcontainer">
+            <label for="fname">Nightscout adress:</label>
+          </div>
+          <div class="smallcontainer">
+            <input
+              type="text"
+              id="adress"
+              name="adress"
+              value=""
+              placeholder="https://yournightscout.herokuapp.com"
+            />
+          </div>
+          <div class="smallcontainer">
+            <label for="apisecret">Api secret:</label>
+          </div>
+          <div class="smallcontainer">
+            <input
+              type="password"
+              id="apisecret"
+              name="apisecret"
+              value=""
+              placeholder=""
+            />
+          </div>
+          <div class="smallcontainer">
+            <label for="date">Date:</label>
+          </div>
+          <div class="smallcontainer">
+            <input type="date" id="date" name="date" value="" />
+          </div>
+          <div class="smallcontainer">
+            <label for="lname">Days</label>
+          </div>
+          <div class="smallcontainer">
+            <input
+              type="text"
+              id="days"
+              name="days"
+              value="14"
+              class="days"
+              placeholder="14"
+            />
+          </div>
+          <div class="smallcontainer">
+            <input type="submit" value="Get CSV File" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    let locale = window.navigator.userLanguage || window.navigator.language;
+
+    address = $("#adress");
+    datePicker = $("#date");
+
+    var dateNow = Date.now();
+
+    datePicker.val(new Date(dateNow).toLocaleDateString(locale));
+
+    address.change(function () {
+      adressString = address.val();
+      ishttp = adressString.substr(0, 4);
+      if (ishttp !== "http") {
+        console.log(ishttp);
+        address.val("https://" + adressString);
+      }
+      var lastChar = adressString.substr(adressString.length - 1);
+      if (lastChar == "/") {
+        address.val(adressString.substr(0, adressString.length - 1));
+      }
+      // if (!adressString.includes("herokuapp.com")) {
+      //   alert("use herokuapp");
+      // }
+    });
+  </script>
+</html>
