@@ -145,23 +145,22 @@ def nsdata(adress: str, date_string: str, days: int, apisecret: str, token: str)
                 json.append({"insulin": treat.insulin, "date": treat.timestamp})  # type: ignore
             if treat.carbs is not None:  # type: ignore
                 json.append({"carbs": treat.carbs, "date": treat.timestamp})  # type: ignore
-
-    #         if treat.eventType is not None and treat.eventType == "Temp Basal":  # type: ignore
-    #             basal_change_list.append(
-    #                 {
-    #                     "date": treat.timestamp,
-    #                     "rate": treat.rate,
-    #                     "duration": treat.duration,
-    #                     "treat": treat,
-    #                 }
-    #             )
-    # basal_change_list = convert_basal_list(basal_change_list)
-    # calc_basal = calculated_basal(api, date_time, basal_change_list)
-    # for basal in calc_basal:
-    #     total = 0
-    #     total = basal["pgm"] + basal["change"]
-    #     json.append({"basal": round(total,2), "date": basal["date"]})
-    # json.sort(key=operator.itemgetter("date"))
+            if treat.eventType is not None and treat.eventType == "Temp Basal":  # type: ignore
+                basal_change_list.append(
+                    {
+                        "date": treat.timestamp,
+                        "rate": treat.rate,
+                        "duration": treat.duration,
+                        "treat": treat,
+                    }
+                )
+    basal_change_list = convert_basal_list(basal_change_list)
+    calc_basal = calculated_basal(api, date_time, basal_change_list)
+    for basal in calc_basal:
+        total = 0
+        total = basal["pgm"] + basal["change"]
+        json.append({"basal": round(total, 2), "date": basal["date"]})
+    json.sort(key=operator.itemgetter("date"))
 
     return json
 
