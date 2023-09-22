@@ -107,8 +107,7 @@ def calculated_basal(api, date, basal_change_list):
     return daily_basal
 
 
-def nsdata(adress: str, date_string: str, days: int, apisecret: str):
-
+def nsdata(adress: str, date_string: str, days: int, apisecret: str, token: str):
     count = int(days) * 288
 
     date_time = datetime.strptime(date_string, "%Y-%m-%d") + timedelta(days=1)
@@ -116,7 +115,7 @@ def nsdata(adress: str, date_string: str, days: int, apisecret: str):
     min_date = datetime.strftime(date_time - timedelta(days=int(days)), "%Y-%m-%d")
     max_date = datetime.strftime(date_time, "%Y-%m-%d")
 
-    api = nightscout.Api(adress, api_secret=apisecret.encode("utf-8"))
+    api = nightscout.Api(adress, api_secret=apisecret.encode("utf-8"), token=token)
     entries = api.get_sgvs(
         {
             "find[dateString][$gte]": min_date,

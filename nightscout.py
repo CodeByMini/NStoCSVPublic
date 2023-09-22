@@ -24,10 +24,11 @@ class Api(object):
         >>> print([entry.sgv for entry in entries])
     """
 
-    def __init__(self, site_url, api_secret=None):
+    def __init__(self, site_url, api_secret=None, token=None):
         """Instantiate a new Api object."""
         self.site_url = site_url
         self.api_secret = api_secret
+        self.token = token
 
     def request_headers(self):
         headers = {"Content-Type": "application/json", "Accept": "application/json"}
@@ -45,7 +46,9 @@ class Api(object):
           A list of SGV objects
         """
         r = requests.get(
-            self.site_url + "/api/v1/entries/sgv.json",
+            self.site_url + "/api/v1/entries/sgv.json" + "?token=" + self.token
+            if self.token
+            else "",
             headers=self.request_headers(),
             params=params,
         )
@@ -61,7 +64,9 @@ class Api(object):
           A list of Treatments
         """
         r = requests.get(
-            self.site_url + "/api/v1/treatments.json",
+            self.site_url + "/api/v1/treatments.json" + "?token=" + self.token
+            if self.token
+            else "",
             headers=self.request_headers(),
             params=params,
         )
@@ -80,7 +85,9 @@ class Api(object):
           ProfileDefinitionSet
         """
         r = requests.get(
-            self.site_url + "/api/v1/profile.json",
+            self.site_url + "/api/v1/profile.json" + "?token=" + self.token
+            if self.token
+            else "",
             headers=self.request_headers(),
             params=params,
         )

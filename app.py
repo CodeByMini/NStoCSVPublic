@@ -42,16 +42,18 @@ async def Index(request: Request):
 async def GetCSV(request: Request):
     adress = request.query_params.get("adress")
     apisecret = request.query_params.get("apisecret")
+    token = request.query_params.get("token")
     start_date = request.query_params.get("date")
     days = request.query_params.get("days")
     print(adress)
-    json = nsdata(adress, start_date, days, apisecret)
+
+    json = nsdata(adress, start_date, days, apisecret, token)
     adress_split = adress[8:-14]
     print(adress_split)
     serial_numbers = [ord(letter) for letter in adress_split]
     serial_str = ""
     for letter in serial_numbers:
-        serial_str += str(letter) 
+        serial_str += str(letter)
     print(serial_str)
     writer = StringIO()
     firstrow = "Glukosuppgifter,Skapat den,,Skapat av,\n"
@@ -62,7 +64,9 @@ async def GetCSV(request: Request):
     for line in json:
         if "sgv" in line.keys():
             row = (
-                "Nightscout,"+serial_str+","
+                "Nightscout,"
+                + serial_str
+                + ","
                 + line["date"].strftime("%m-%d-%Y %H:%M")
                 + ',0,"'
                 + str(line["sgv"])
@@ -71,7 +75,9 @@ async def GetCSV(request: Request):
             )
         if "insulin" in line.keys():
             row = (
-                "Nightscout,"+serial_str+","
+                "Nightscout,"
+                + serial_str
+                + ","
                 + line["date"].strftime("%m-%d-%Y %H:%M")
                 + ",4,"
                 + ",,,"
@@ -80,7 +86,9 @@ async def GetCSV(request: Request):
             )
         if "carbs" in line.keys():
             row = (
-                "Nightscout,"+serial_str+","
+                "Nightscout,"
+                + serial_str
+                + ","
                 + line["date"].strftime("%m-%d-%Y %H:%M")
                 + ",5,"
                 + ",,,,,"
@@ -89,7 +97,9 @@ async def GetCSV(request: Request):
             )
         if "basal" in line.keys():
             row = (
-                "Nightscout,"+serial_str+","
+                "Nightscout,"
+                + serial_str
+                + ","
                 + line["date"].strftime("%m-%d-%Y %H:%M")
                 + ",4,"
                 + ",,,,,,,,"
