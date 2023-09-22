@@ -5,10 +5,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NS To CSV</title>
-    <link
-      href="{{ url_for('static', path='css/style.css') }}"
-      rel="stylesheet"
-    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+
+      body {
+        background-color: #1c1d21;
+        height: 100%;
+        width: 100%;
+        font-size: 32px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 100;
+      }
+      .supercontainer {
+        background-color: #1c1d21;
+        height: 100%;
+        width: 100%;
+      }
+      .container {
+        margin: auto;
+        margin-top: 40px;
+        background-color: 1C1D21;
+        border: 2px solid;
+        border-color: cornflowerblue;
+        border-radius: 5px;
+        height: auto;
+        padding: 50px;
+        width: 700px;
+      }
+      label {
+        display: inline-block;
+        width: 600px;
+
+        text-align: center;
+        color: #f1e3e4;
+      }
+      .smallcontainer {
+        margin: auto;
+        margin-top: 30px;
+        width: 600px;
+        background-color: none;
+      }
+      input {
+        display: inline-block;
+        margin: auto;
+        background-color: none;
+        width: 600px;
+        height: 40px;
+        padding: 0px;
+        border: 0px;
+        font-family: "Roboto", sans-serif;
+      }
+      input[type="text" i] {
+        font-size: 30px;
+        padding: 10px;
+      }
+      input[type="date" i] {
+        font-size: 30px;
+        padding: 10px;
+      }
+      .days {
+        text-align: center;
+      }
+
+      input[type="submit" i] {
+        background-color: #ef233c;
+        border: 2px solid;
+        border-radius: 5px;
+        border-color: #d90429;
+        height: 80px;
+        color: #f1e3e4;
+        font-size: 30px;
+        font-family: "Roboto", sans-serif;
+      }
+    </style>
   </head>
   <body>
     <div class="supercontainer">
