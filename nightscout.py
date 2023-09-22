@@ -45,10 +45,9 @@ class Api(object):
         Returns:
           A list of SGV objects
         """
+        token = "?token=" + self.token if self.token else ""
         r = requests.get(
-            self.site_url + "/api/v1/entries/sgv.json" + "?token=" + self.token
-            if self.token
-            else "",
+            self.site_url + "/api/v1/entries/sgv.json" + token,
             headers=self.request_headers(),
             params=params,
         )
@@ -63,10 +62,9 @@ class Api(object):
         Returns:
           A list of Treatments
         """
+        token = "?token=" + self.token if self.token else ""
         r = requests.get(
-            self.site_url + "/api/v1/treatments.json" + "?token=" + self.token
-            if self.token
-            else "",
+            self.site_url + "/api/v1/treatments.json" + token,
             headers=self.request_headers(),
             params=params,
         )
@@ -84,10 +82,9 @@ class Api(object):
         Returns:
           ProfileDefinitionSet
         """
+        token = "?token=" + self.token if self.token else ""
         r = requests.get(
-            self.site_url + "/api/v1/profile.json" + "?token=" + self.token
-            if self.token
-            else "",
+            self.site_url + "/api/v1/profile.json" + token,
             headers=self.request_headers(),
             params=params,
         )
